@@ -5,15 +5,15 @@ const providers = {
   courses: [],
 };
 
-export const resolvers = {
-  categories() {
-    return providers.categories;
+export const resolvers = ({ categoryModel, courseModel }) => ({
+  async categories() {
+    return await categoryModel.list();
   },
 
-  createCategory({ input: { name, description } }) {
+  async createCategory({ input: { name, description } }) {
     const category = { id: randomUUID(), name, description };
 
-    providers.categories.push(category);
+    await categoryModel.create(category);
 
     return category;
   },
@@ -43,4 +43,4 @@ export const resolvers = {
   courses() {
     return providers.courses;
   },
-};
+});
