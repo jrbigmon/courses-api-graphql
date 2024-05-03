@@ -1,9 +1,14 @@
 {
   "name": "graphql",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./src/index.js",
   "author": "VagnerJr",
   "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "start": "node ./src/index.js",
+    "start:dev": "node ./src/index.js --watch"
+  },
   "dependencies": {
     "express": "^4.19.2"
   }
