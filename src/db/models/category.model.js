@@ -5,6 +5,7 @@ const categoryModel = (db) => {
     return new Promise((resolve, reject) => {
       db.run(sql, [id, name, description], function (error) {
         if (error) {
+          console.error(error);
           return reject(error.message);
         }
 
@@ -19,6 +20,7 @@ const categoryModel = (db) => {
     return new Promise((resolve, reject) => {
       db.all(sql, [], function (error, rows) {
         if (error) {
+          console.error(error);
           return reject(error.message);
         }
 
@@ -35,9 +37,33 @@ const categoryModel = (db) => {
     });
   };
 
+  const getById = (id) => {
+    const sql = `SELECT * FROM categories WHERE id = ?;`;
+
+    return new Promise((resolve, reject) => {
+      db.get(sql, [id], function (error, row) {
+        if (error) {
+          console.error(error);
+          return reject(error.message);
+        }
+
+        if (!row) return resolve(null);
+
+        const { id, name, description } = row;
+
+        resolve({
+          id,
+          name,
+          description,
+        });
+      });
+    });
+  };
+
   return {
     create,
     list,
+    getById,
   };
 };
 
