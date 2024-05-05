@@ -64,7 +64,7 @@ const dbInit = (sqlite3) => {
         );
       });
 
-      resolve(console.log("Tables created and initialized"));
+      resolve(console.log("Tables created if not exists and initialized"));
     });
 
     return database;
