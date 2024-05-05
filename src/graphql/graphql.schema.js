@@ -12,6 +12,7 @@ export const schema = buildSchema(`
     id: ID!
     name: String!
     description: String!
+    categoryId: String!
     category: Category!
   }
 
