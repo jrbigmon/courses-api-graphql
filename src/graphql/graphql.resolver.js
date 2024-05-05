@@ -1,10 +1,5 @@
 import { randomUUID } from "crypto";
 
-const providers = {
-  categories: [],
-  courses: [],
-};
-
 export const resolvers = ({ categoryModel, courseModel }) => ({
   async categories() {
     return await categoryModel.list();
@@ -18,10 +13,8 @@ export const resolvers = ({ categoryModel, courseModel }) => ({
     return category;
   },
 
-  createCourse({ input: { name, description, categoryId } }) {
-    const category = providers.categories.find(
-      (categoryInDB) => (categoryInDB.id = categoryId)
-    );
+  async createCourse({ input: { name, description, categoryId } }) {
+    const category = await categoryModel.getById(categoryId);
 
     if (!category) {
       throw new Error("Category not found");
@@ -35,12 +28,12 @@ export const resolvers = ({ categoryModel, courseModel }) => ({
       category,
     };
 
-    providers.courses.push(course);
+    await courseModel.create(course);
 
     return course;
   },
 
-  courses() {
-    return providers.courses;
+  async courses() {
+    return await courseModel.list();
   },
 });
