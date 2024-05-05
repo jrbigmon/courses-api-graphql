@@ -12,7 +12,7 @@ export const resolvers = ({ categoryModel, courseModel }) => ({
   },
 
   Mutation: {
-    async createCategory({ input: { name, description } }) {
+    async createCategory(_, { input: { name, description } }) {
       const category = { id: randomUUID(), name, description };
 
       await categoryModel.create(category);
@@ -20,7 +20,7 @@ export const resolvers = ({ categoryModel, courseModel }) => ({
       return category;
     },
 
-    async createCourse({ input: { name, description, categoryId } }) {
+    async createCourse(_, { input: { name, description, categoryId } }) {
       const category = await categoryModel.getById(categoryId);
 
       if (!category) {
