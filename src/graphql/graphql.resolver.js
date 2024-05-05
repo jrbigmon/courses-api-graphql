@@ -40,4 +40,10 @@ export const resolvers = ({ categoryModel, courseModel }) => ({
       return course;
     },
   },
+
+  Course: {
+    async category(parent) {
+      return await categoryModel.getById(parent.categoryId);
+    },
+  },
 });
