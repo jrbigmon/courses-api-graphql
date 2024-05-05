@@ -35,7 +35,7 @@ const dbInit = (sqlite3) => {
     return database;
   };
 
-  const prod = async () => {
+  const dev = async () => {
     sqlite3.verbose();
     const database = new sqlite3.Database(
       resolve("src", "db", "database.sqlite")
@@ -72,10 +72,10 @@ const dbInit = (sqlite3) => {
 
   return {
     test,
-    prod,
+    dev,
   };
 };
 
-const { test, prod } = dbInit(sqlite3);
+const { test, dev } = dbInit(sqlite3);
 
-export { test, prod };
+export { test, dev };
