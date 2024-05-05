@@ -15,17 +15,7 @@ const courseModel = (db) => {
   };
 
   const list = () => {
-    const sql = `
-      SELECT
-        c.id courseId,
-        c.name courseName,
-        c.description courseDescription,
-        category.id categoryId,
-        category.name categoryName,
-        category.description categoryDescription 
-      FROM courses c
-      INNER JOIN categories category ON category.id = c.category_id;
-    `;
+    const sql = `SELECT * FROM courses;`;
 
     return new Promise((resolve, reject) => {
       db.all(sql, [], function (error, rows) {
@@ -36,26 +26,12 @@ const courseModel = (db) => {
 
         if (!rows || !rows?.length) return resolve([]);
 
-        const courses = rows?.map(
-          ({
-            courseId,
-            courseName,
-            courseDescription,
-            categoryId,
-            categoryName,
-            categoryDescription,
-          }) => ({
-            id: courseId,
-            name: courseName,
-            description: courseDescription,
-            categoryId: categoryId,
-            category: {
-              id: categoryId,
-              name: categoryName,
-              description: categoryDescription,
-            },
-          })
-        );
+        const courses = rows?.map(({ id, name, description, category_id }) => ({
+          id,
+          name,
+          description,
+          categoryId: category_id,
+        }));
 
         resolve(courses);
       });

@@ -13,7 +13,7 @@ export const schema = buildSchema(`
     name: String!
     description: String!
     categoryId: String!
-    category: Category!
+    category: Category
   }
 
   input NewCategory {
