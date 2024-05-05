@@ -11,7 +11,7 @@ const port = 3000;
 
 const db = await prod();
 
-const {} = app.use(
+app.use(
   "/graphql",
   graphqlHTTP({
     schema,
