@@ -18,6 +18,10 @@ const server = new ApolloServer({
     categoryModel: categoryModel(db),
     courseModel: courseModel(db),
   }),
+  formatError: (error) => {
+    console.error(error);
+    return error;
+  },
 });
 
 await server.start();
