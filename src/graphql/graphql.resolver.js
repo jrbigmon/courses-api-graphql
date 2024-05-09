@@ -42,8 +42,14 @@ export const resolvers = ({ categoryModel, courseModel }) => ({
   },
 
   Course: {
-    async category(parent) {
-      return await categoryModel.getById(parent.categoryId);
+    async category({ categoryId }) {
+      return await categoryModel.getById(categoryId);
+    },
+  },
+
+  Category: {
+    async courses({ id }) {
+      return await courseModel.listByCategoryId(id);
     },
   },
 });
